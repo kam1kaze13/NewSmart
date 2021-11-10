@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginVertical="36dp"
+        android:textSize="28sp"
+        android:text="@string/label_authorization"
+        android:textColor="@color/black"
+        />
+
+    <EditText
+        android:id="@+id/etLogin"
+        android:hint="@string/hint_input_login"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        />
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:hint="@string/hint_input_pass"
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        />
+
+    <Button
+        android:text="@string/text_enter"
+        android:id="@+id/btnEnter"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="28dp"
+        android:backgroundTint="@color/main_color"
+        android:textColor="@color/black"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="250dp"
+        android:textSize="14sp"
+        android:text="@string/label_offer_registration"
+        android:textColor="@color/black"
+        />
+
+    <Button
+        android:text="@string/text_register"
+        android:id="@+id/btnRegister"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/main_color"
+        android:textColor="@color/black"
+        />
+
+</LinearLayout>

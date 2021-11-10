@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">NewSmart</string>
+    <string name="label_authorization">Авторизация</string>
+    <string name="hint_input_login">Введите логин</string>
+    <string name="hint_input_pass">Введите пароль</string>
+    <string name="text_enter">Войти</string>
+    <string name="label_registration">Регистрация</string>
+    <string name="label_offer_registration">Впервые у нас?</string>
+    <string name="text_register">Создать аккаунт</string>
+    <string name="hint_input_name">Введите имя</string>
+    <string name="hint_input_last_name">Введите фамилию</string>
+    <string name="hint_input_phone">Введите телефон</string>
+    <string name="hint_input_address">Введите адрес</string>
+</resources>
