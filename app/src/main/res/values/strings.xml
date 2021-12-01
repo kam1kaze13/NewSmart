@@ -11,4 +11,11 @@
     <string name="hint_input_last_name">Введите фамилию</string>
     <string name="hint_input_phone">Введите телефон</string>
     <string name="hint_input_address">Введите адрес</string>
+    <string name="hint_search">Поиск…</string>
+    <string name="label_smartphones">Смартфоны</string>
+    <string name="label_manufacturers">Производители</string>
+    <string name="label_questions">Вопросы</string>
+    <string name="label_feedback">Есть вопросы? Задайте его нашим специалистам</string>
+    <string name="hint_feedback">Введите ваш вопрос…</string>
+    <string name="text_feedback">Задать вопрос</string>
 </resources>
