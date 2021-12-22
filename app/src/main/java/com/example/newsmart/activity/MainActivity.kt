@@ -9,6 +9,7 @@ import com.example.newsmart.R
 import com.example.newsmart.databinding.ActivityMainBinding
 import com.example.newsmart.fragment.AuthFragment
 import com.example.newsmart.fragment.PhonesFragment
+import com.example.newsmart.fragment.SplashFragment
 
 class MainActivity : FragmentActivity() {
     fun navigateToFragment(fmt : Fragment) {
@@ -18,14 +19,14 @@ class MainActivity : FragmentActivity() {
             .commit()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         val binding = ActivityMainBinding.inflate(LayoutInflater.from(this))
         setContentView(binding.root)
 
         if (savedInstanceState == null) {
-            navigateToFragment(AuthFragment.newInstance())
+            navigateToFragment(SplashFragment.newInstance())
         }
     }
 }

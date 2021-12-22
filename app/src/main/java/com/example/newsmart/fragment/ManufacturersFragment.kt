@@ -34,12 +34,13 @@ class ManufacturersFragment : Fragment(R.layout.fragment_manufacturers) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentManufacturersBinding.bind(view)
         val name = arguments?.getString(PhonesFragment.KEY_NAME)
+        val descr = arguments?.getString(PhonesFragment.KEY_DESCRIPTION)
         val iconResId = arguments?.getInt(PhonesFragment.KEY_ICON_RES_ID)
 
         binding.rvManufacturers.layoutManager = LinearLayoutManager(requireContext())
         binding.rvManufacturers.adapter = ManufacturerAdapter(DataSource.manufacturers) {
             (activity as MainActivity).navigateToFragment(
-                ManufacturersFragment.newInstance(name, iconResId)
+                PhonesFragment.newInstance(name,descr, iconResId)
             )
         }
     }

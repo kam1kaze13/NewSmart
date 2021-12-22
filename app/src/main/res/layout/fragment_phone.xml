@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp">
+
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="@tools:sample/cities"
+        android:textSize="30sp"
+        android:textColor="@color/main_color"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/ivAvatar"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        tools:src="@tools:sample/avatars"
+        app:layout_constraintTop_toBottomOf="@id/tvName"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp" />
+
+    <TextView
+        android:id="@+id/tvPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text = "@tools:sample/us_phones"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toRightOf="@id/ivAvatar"
+        app:layout_constraintTop_toBottomOf="@id/tvName"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="20dp"
+        />
+
+    <TextView
+        android:id="@+id/tvSpecification"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/label_specification"
+        android:textSize="30sp"
+        android:textColor="@color/main_color"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivAvatar"
+        />
+
+    <TextView
+        android:id="@+id/tvCharacteristics"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="@tools:sample/lorem/random"
+        app:layout_constraintTop_toBottomOf="@id/tvSpecification"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:padding="15dp"
+
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
