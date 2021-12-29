@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.newsmart.R
 import com.example.newsmart.model.Smartphone
 
@@ -50,6 +51,12 @@ class PhoneAdapter(
             tvName.text = phone.manufacturer.toString() + phone.name
             tvDescription.text = phone.price.toString()
             ivAvatar.setImageResource(phone.coverResId)
+            Glide
+                .with(itemView)
+                .load(phone.coverResId)
+                .centerCrop()
+                .placeholder(R.drawable.ic_splash)
+                .into(ivAvatar)
         }
     }
 }

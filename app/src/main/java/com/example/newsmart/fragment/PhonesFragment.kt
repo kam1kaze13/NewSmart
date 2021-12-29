@@ -10,9 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsmart.R
 import com.example.newsmart.activity.MainActivity
+import com.example.newsmart.adapter.ManufacturerAdapter
 import com.example.newsmart.adapter.PhoneAdapter
 import com.example.newsmart.data.DataSource
+import com.example.newsmart.databinding.FragmentManufacturersBinding
 import com.example.newsmart.databinding.FragmentPhonesBinding
+import com.example.newsmart.network.NetworkService
+import kotlinx.coroutines.*
+import kotlinx.serialization.ExperimentalSerializationApi
 
 class PhonesFragment : Fragment(R.layout.fragment_phones) {
     companion object {
@@ -32,6 +37,15 @@ class PhonesFragment : Fragment(R.layout.fragment_phones) {
         }
     }
 
+    private lateinit var binding: FragmentPhonesBinding
+
+    private val coroutineExceptionHandler = CoroutineExceptionHandler { context, exception ->
+        binding.progressBar.visibility = View.GONE
+        println("CoroutineExceptionHandler got $exception")
+    }
+
+    private val scope = CoroutineScope(Dispatchers.Main + Job() + coroutineExceptionHandler)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentPhonesBinding.bind(view)
@@ -45,6 +59,17 @@ class PhonesFragment : Fragment(R.layout.fragment_phones) {
             (activity as MainActivity).navigateToFragment(
                 PhoneFragment.newInstance(name, description, iconResId,character)
             )
+        }
+    }
+
+    @ExperimentalSerializationApi
+    private fun loadPhones() {
+        scope.launch {
+            val phones = NetworkService.loadSmartphones()
+            binding.rvPhones.layoutManager = LinearLayoutManager(context)
+            binding.rvPhones.adapter = PhoneAdapter(phones) {}
+            binding.progressBar.visibility = View.GONE
+            binding.swRefreshRW.isRefreshing = false
         }
     }
 }

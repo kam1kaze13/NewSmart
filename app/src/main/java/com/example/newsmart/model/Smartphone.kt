@@ -1,7 +1,9 @@
 package com.example.newsmart.model
 
 import androidx.annotation.DrawableRes
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Smartphone(
     val manufacturer: Manufacturer,
     val name : String,

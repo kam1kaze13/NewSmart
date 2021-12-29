@@ -10,9 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsmart.R
 import com.example.newsmart.activity.MainActivity
+import com.example.newsmart.adapter.PhoneAdapter
 import com.example.newsmart.adapter.QuestionAdapter
 import com.example.newsmart.data.DataSource
+import com.example.newsmart.databinding.FragmentPhonesBinding
 import com.example.newsmart.databinding.FragmentQuestionsBinding
+import com.example.newsmart.network.NetworkService
+import kotlinx.coroutines.*
+import kotlinx.serialization.ExperimentalSerializationApi
 
 class QuestionsFragment : Fragment(R.layout.fragment_questions) {
     companion object {
@@ -34,6 +39,15 @@ class QuestionsFragment : Fragment(R.layout.fragment_questions) {
         }
     }
 
+    private lateinit var binding: FragmentQuestionsBinding
+
+    private val coroutineExceptionHandler = CoroutineExceptionHandler { context, exception ->
+        binding.progressBar.visibility = View.GONE
+        println("CoroutineExceptionHandler got $exception")
+    }
+
+    private val scope = CoroutineScope(Dispatchers.Main + Job() + coroutineExceptionHandler)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentQuestionsBinding.bind(view)
@@ -47,6 +61,17 @@ class QuestionsFragment : Fragment(R.layout.fragment_questions) {
             (activity as MainActivity).navigateToFragment(
                 QuestionsFragment.newInstance(name, date, description, iconResId)
             )
+        }
+    }
+
+    @ExperimentalSerializationApi
+    private fun loadQuestions() {
+        scope.launch {
+            val questions = NetworkService.loadQuestions()
+            binding.rvQuestions.layoutManager = LinearLayoutManager(context)
+            binding.rvQuestions.adapter = QuestionAdapter(questions) {}
+            binding.progressBar.visibility = View.GONE
+            binding.swRefreshRW.isRefreshing = false
         }
     }
 }

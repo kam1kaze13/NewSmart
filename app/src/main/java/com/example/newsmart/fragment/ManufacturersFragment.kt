@@ -13,6 +13,9 @@ import com.example.newsmart.activity.MainActivity
 import com.example.newsmart.adapter.ManufacturerAdapter
 import com.example.newsmart.data.DataSource
 import com.example.newsmart.databinding.FragmentManufacturersBinding
+import com.example.newsmart.network.NetworkService
+import kotlinx.coroutines.*
+import kotlinx.serialization.ExperimentalSerializationApi
 
 class ManufacturersFragment : Fragment(R.layout.fragment_manufacturers) {
     companion object {
@@ -29,6 +32,14 @@ class ManufacturersFragment : Fragment(R.layout.fragment_manufacturers) {
             return fragment
         }
     }
+    private lateinit var binding: FragmentManufacturersBinding
+
+    private val coroutineExceptionHandler = CoroutineExceptionHandler { context, exception ->
+        binding.progressBar.visibility = View.GONE
+        println("CoroutineExceptionHandler got $exception")
+    }
+
+    private val scope = CoroutineScope(Dispatchers.Main + Job() + coroutineExceptionHandler)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,4 +55,16 @@ class ManufacturersFragment : Fragment(R.layout.fragment_manufacturers) {
             )
         }
     }
+
+    @ExperimentalSerializationApi
+    private fun loadManufacturer() {
+        scope.launch {
+            val manufacturers = NetworkService.loadManufacturers()
+            binding.rvManufacturers.layoutManager = LinearLayoutManager(context)
+            binding.rvManufacturers.adapter = ManufacturerAdapter(manufacturers) {}
+            binding.progressBar.visibility = View.GONE
+            binding.swRefreshRW.isRefreshing = false
+        }
+    }
+
 }

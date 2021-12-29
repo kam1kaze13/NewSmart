@@ -1,5 +1,8 @@
 package com.example.newsmart.model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Specification(
     val warranty : String,
     val color : String,

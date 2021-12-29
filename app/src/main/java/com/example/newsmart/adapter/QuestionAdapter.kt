@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.newsmart.R
 import com.example.newsmart.model.Question
 
@@ -52,6 +53,12 @@ class QuestionAdapter(
             tvDate.text = question.date
             tvDescription.text = question.question
             ivAvatar.setImageResource(question.user.coverResId)
+            Glide
+                .with(itemView)
+                .load(question.coverResId)
+                .centerCrop()
+                .placeholder(R.drawable.ic_splash)
+                .into(ivAvatar)
         }
     }
 }
