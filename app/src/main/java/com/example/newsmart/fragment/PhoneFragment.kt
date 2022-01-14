@@ -9,6 +9,7 @@ import com.example.newsmart.R
 import com.example.newsmart.activity.MainActivity
 import com.example.newsmart.adapter.PhoneAdapter
 import com.example.newsmart.data.DataSource
+import com.example.newsmart.databinding.FragmentPhoneBinding
 import com.example.newsmart.databinding.FragmentPhonesBinding
 import com.example.newsmart.model.Specification
 
@@ -34,16 +35,14 @@ class PhoneFragment : Fragment(R.layout.fragment_phone) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val binding = FragmentPhonesBinding.bind(view)
+        val binding = FragmentPhoneBinding.bind(view)
         val name = arguments?.getString(KEY_NAME)
         val description = arguments?.getString(KEY_DESCRIPTION)
         val iconResId = arguments?.getInt(KEY_ICON_RES_ID)
 
-        binding.rvPhones.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvPhones.adapter = PhoneAdapter(DataSource.phones) {
-            (activity as MainActivity).navigateToFragment(
-                PhonesFragment.newInstance(name, description, iconResId)
-            )
-        }
+        (activity as MainActivity).navigateToFragment(
+            PhonesFragment.newInstance(name, description, iconResId)
+        )
+
     }
 }

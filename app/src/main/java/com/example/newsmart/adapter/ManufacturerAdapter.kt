@@ -47,7 +47,6 @@ class ManufacturerAdapter(
         fun bind (manufacturer : Manufacturer){
             this.manufacturer = manufacturer
             tvName.text = manufacturer.name
-            ivAvatar.setImageResource(manufacturer.coverResId)
             Glide
                 .with(itemView)
                 .load(manufacturer.coverResId)

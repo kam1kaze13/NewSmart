@@ -14,6 +14,7 @@ import com.example.newsmart.adapter.ManufacturerAdapter
 import com.example.newsmart.adapter.PhoneAdapter
 import com.example.newsmart.data.DataSource
 import com.example.newsmart.databinding.FragmentManufacturersBinding
+import com.example.newsmart.databinding.FragmentPhoneBinding
 import com.example.newsmart.databinding.FragmentPhonesBinding
 import com.example.newsmart.network.NetworkService
 import kotlinx.coroutines.*

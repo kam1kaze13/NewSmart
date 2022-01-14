@@ -50,7 +50,6 @@ class PhoneAdapter(
             this.phone = phone
             tvName.text = phone.manufacturer.toString() + phone.name
             tvDescription.text = phone.price.toString()
-            ivAvatar.setImageResource(phone.coverResId)
             Glide
                 .with(itemView)
                 .load(phone.coverResId)
