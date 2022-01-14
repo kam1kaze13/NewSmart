@@ -1,13 +1,16 @@
 package com.example.newsmart.domain.model
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
 import kotlinx.serialization.Serializable
 
 @Serializable
+@Entity
 data class User(
-    val name : String,
-    val lastName : String,
-    val phone : String,
-    val email : String,
-    val address : String,
-    val coverResId : Int
+    @ColumnInfo val name : String,
+    @ColumnInfo val lastName : String,
+    @ColumnInfo val phone : String,
+    @ColumnInfo val email : String,
+    @ColumnInfo val address : String,
+    @ColumnInfo val coverResId : Int
 )
