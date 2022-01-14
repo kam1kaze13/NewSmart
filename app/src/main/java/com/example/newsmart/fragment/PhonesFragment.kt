@@ -1,23 +1,24 @@
 package com.example.newsmart.fragment
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.newsmart.R
+import com.example.newsmart.ScreenState
 import com.example.newsmart.activity.MainActivity
-import com.example.newsmart.adapter.ManufacturerAdapter
 import com.example.newsmart.adapter.PhoneAdapter
 import com.example.newsmart.data.DataSource
-import com.example.newsmart.databinding.FragmentManufacturersBinding
-import com.example.newsmart.databinding.FragmentPhoneBinding
 import com.example.newsmart.databinding.FragmentPhonesBinding
+import com.example.newsmart.model.Smartphone
 import com.example.newsmart.network.NetworkService
+import com.example.newsmart.onClickFlow
+import com.example.newsmart.onRefreshFlow
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
 import kotlinx.serialization.ExperimentalSerializationApi
 
 class PhonesFragment : Fragment(R.layout.fragment_phones) {
@@ -38,18 +39,12 @@ class PhonesFragment : Fragment(R.layout.fragment_phones) {
         }
     }
 
-    private lateinit var binding: FragmentPhonesBinding
-
-    private val coroutineExceptionHandler = CoroutineExceptionHandler { context, exception ->
-        binding.progressBar.visibility = View.GONE
-        println("CoroutineExceptionHandler got $exception")
+    private fun setLoading(isLoading: Boolean) = with(binding) {
+        progressBar.isVisible = isLoading && !rvPhones.isVisible
+        swRefreshRW.isRefreshing = isLoading && rvPhones.isVisible
     }
-
-    private val scope = CoroutineScope(Dispatchers.Main + Job() + coroutineExceptionHandler)
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val binding = FragmentPhonesBinding.bind(view)
+    private fun setData(headphones: List<Smartphone>?) = with(binding){
+        rvPhones.isVisible = headphones != null
         val name = arguments?.getString(PhoneFragment.KEY_NAME)
         val description = arguments?.getString(PhoneFragment.KEY_DESCRIPTION)
         val iconResId = arguments?.getInt(PhoneFragment.KEY_ICON_RES_ID)
@@ -62,16 +57,60 @@ class PhonesFragment : Fragment(R.layout.fragment_phones) {
             )
         }
     }
+    private fun setError(message: String?) = with(binding){
+        ErrLayout.isVisible = message != null
+        textError.text = message
+    }
+
+    private lateinit var binding: FragmentPhonesBinding
+
+    private val coroutineExceptionHandler = CoroutineExceptionHandler { context, exception ->
+        binding.progressBar.visibility = View.GONE
+        println("CoroutineExceptionHandler got $exception")
+    }
+
+    private val scope = CoroutineScope(Dispatchers.Main + Job() + coroutineExceptionHandler)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val binding = FragmentPhonesBinding.bind(view)
+        merge(
+            flowOf(Unit),
+            binding.swRefreshRW.onRefreshFlow(),
+            binding.buttonError.onClickFlow()
+        )
+            .flatMapLatest{loadPhones()}
+            .distinctUntilChanged()
+            .onEach{
+                when(it){
+                    is ScreenState.DataLoaded -> {
+                        setLoading(false)
+                        setError(null)
+                        setData(it.phones)
+                    }
+                    is ScreenState.Error -> {
+                        setLoading(false)
+                        setError(it.error)
+                        setData(null)
+                    }
+                    ScreenState.Loading -> {
+                        setLoading(true)
+                        setError(null)
+                    }
+                }
+            }
+            .launchIn(lifecycleScope)
+    }
 
     @ExperimentalSerializationApi
-    private fun loadPhones() {
-        scope.launch {
-            val phones = NetworkService.loadSmartphones()
-            binding.rvPhones.layoutManager = LinearLayoutManager(context)
-            binding.rvPhones.adapter = PhoneAdapter(phones) {}
-            binding.progressBar.visibility = View.GONE
-            binding.swRefreshRW.isRefreshing = false
-        }
+    private fun loadPhones() = flow {
+
+        emit(ScreenState.Loading)
+        val phones = NetworkService.loadSmartphones()
+        emit(ScreenState.DataLoaded(phones))
     }
+        .catch{
+            emit(ScreenState.Error(getString(R.string.errorConnect)))
+        }
 }
 

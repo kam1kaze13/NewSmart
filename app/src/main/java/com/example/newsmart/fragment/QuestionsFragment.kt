@@ -1,19 +1,15 @@
 package com.example.newsmart.fragment
 
-import android.app.Activity
-import android.content.Intent
+
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.newsmart.R
 import com.example.newsmart.activity.MainActivity
-import com.example.newsmart.adapter.PhoneAdapter
 import com.example.newsmart.adapter.QuestionAdapter
 import com.example.newsmart.data.DataSource
-import com.example.newsmart.databinding.FragmentPhonesBinding
 import com.example.newsmart.databinding.FragmentQuestionsBinding
 import com.example.newsmart.network.NetworkService
 import kotlinx.coroutines.*
@@ -28,10 +24,10 @@ class QuestionsFragment : Fragment(R.layout.fragment_questions) {
 
         fun newInstance (argName : String?, argDate : String?, argDescr : String?, argIcon : Int?) : QuestionsFragment {
             val args = bundleOf(
-                QuestionsFragment.KEY_NAME to argName,
-                QuestionsFragment.KEY_DATE to argDate,
-                QuestionsFragment.KEY_DESCRIPTION to argDescr,
-                QuestionsFragment.KEY_ICON_RES_ID to argIcon
+                KEY_NAME to argName,
+                KEY_DATE to argDate,
+                KEY_DESCRIPTION to argDescr,
+                KEY_ICON_RES_ID to argIcon
             )
             val fragment = QuestionsFragment()
             fragment.arguments = args
@@ -51,15 +47,15 @@ class QuestionsFragment : Fragment(R.layout.fragment_questions) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentQuestionsBinding.bind(view)
-        val name = arguments?.getString(QuestionsFragment.KEY_NAME)
-        val date = arguments?.getString(QuestionsFragment.KEY_DATE)
-        val description = arguments?.getString(QuestionsFragment.KEY_DESCRIPTION)
-        val iconResId = arguments?.getInt(QuestionsFragment.KEY_ICON_RES_ID)
+        val name = arguments?.getString(KEY_NAME)
+        val date = arguments?.getString(KEY_DATE)
+        val description = arguments?.getString(KEY_DESCRIPTION)
+        val iconResId = arguments?.getInt(KEY_ICON_RES_ID)
 
         binding.rvQuestions.layoutManager = LinearLayoutManager(requireContext())
         binding.rvQuestions.adapter = QuestionAdapter(DataSource.questions) {
             (activity as MainActivity).navigateToFragment(
-                QuestionsFragment.newInstance(name, date, description, iconResId)
+                newInstance(name, date, description, iconResId)
             )
         }
     }

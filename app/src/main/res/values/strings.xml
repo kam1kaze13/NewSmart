@@ -19,4 +19,6 @@
     <string name="hint_feedback">Введите ваш вопрос…</string>
     <string name="text_feedback">Задать вопрос</string>
     <string name="label_specification">Характеристики</string>
+    <string name="errorReset">Обновить</string>
+    <string name="errorConnect">Ошибка соединения</string>
 </resources>
