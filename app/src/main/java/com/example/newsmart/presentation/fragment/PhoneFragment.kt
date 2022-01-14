@@ -1,17 +1,12 @@
-package com.example.newsmart.fragment
+package com.example.newsmart.presentation.fragment
 
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsmart.R
-import com.example.newsmart.activity.MainActivity
-import com.example.newsmart.adapter.PhoneAdapter
-import com.example.newsmart.data.DataSource
+import com.example.newsmart.presentation.activity.MainActivity
 import com.example.newsmart.databinding.FragmentPhoneBinding
-import com.example.newsmart.databinding.FragmentPhonesBinding
-import com.example.newsmart.model.Specification
 
 class PhoneFragment : Fragment(R.layout.fragment_phone) {
     companion object {

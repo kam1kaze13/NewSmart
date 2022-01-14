@@ -1,6 +1,5 @@
-package com.example.newsmart.model
+package com.example.newsmart.domain.model
 
-import androidx.annotation.DrawableRes
 import kotlinx.serialization.Serializable
 
 @Serializable

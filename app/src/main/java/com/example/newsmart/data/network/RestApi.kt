@@ -1,6 +1,6 @@
-package com.example.newsmart.network
+package com.example.newsmart.data.network
 
-import com.example.newsmart.model.*
+import com.example.newsmart.domain.model.*
 import retrofit2.http.GET
 
 interface RestApi {

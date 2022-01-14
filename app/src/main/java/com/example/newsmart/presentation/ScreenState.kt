@@ -1,6 +1,6 @@
-package com.example.newsmart
+package com.example.newsmart.presentation
 
-import com.example.newsmart.model.Smartphone
+import com.example.newsmart.domain.model.Smartphone
 
 sealed class ScreenState{
     data class DataLoaded(val phones: List<Smartphone>) : ScreenState()

@@ -1,12 +1,10 @@
-package com.example.newsmart.fragment
+package com.example.newsmart.presentation.fragment
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.newsmart.R
-import com.example.newsmart.activity.MainActivity
+import com.example.newsmart.presentation.activity.MainActivity
 import com.example.newsmart.databinding.FragmentRegisterBinding
 
 class RegisterFragment : Fragment(R.layout.fragment_register) {

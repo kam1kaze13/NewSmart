@@ -1,4 +1,4 @@
-package com.example.newsmart.fragment
+package com.example.newsmart.presentation.fragment
 
 import android.os.Bundle
 import android.view.View
@@ -6,11 +6,11 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsmart.R
-import com.example.newsmart.activity.MainActivity
-import com.example.newsmart.adapter.ManufacturerAdapter
+import com.example.newsmart.presentation.activity.MainActivity
+import com.example.newsmart.presentation.adapter.ManufacturerAdapter
 import com.example.newsmart.data.DataSource
 import com.example.newsmart.databinding.FragmentManufacturersBinding
-import com.example.newsmart.network.NetworkService
+import com.example.newsmart.data.network.NetworkService
 import kotlinx.coroutines.*
 import kotlinx.serialization.ExperimentalSerializationApi
 

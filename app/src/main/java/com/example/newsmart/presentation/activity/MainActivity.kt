@@ -1,15 +1,12 @@
-package com.example.newsmart.activity
+package com.example.newsmart.presentation.activity
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.example.newsmart.R
 import com.example.newsmart.databinding.ActivityMainBinding
-import com.example.newsmart.fragment.AuthFragment
-import com.example.newsmart.fragment.PhonesFragment
-import com.example.newsmart.fragment.SplashFragment
+import com.example.newsmart.presentation.fragment.SplashFragment
 
 class MainActivity : FragmentActivity() {
     fun navigateToFragment(fmt : Fragment) {

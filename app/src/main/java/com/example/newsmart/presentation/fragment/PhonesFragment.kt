@@ -1,4 +1,4 @@
-package com.example.newsmart.fragment
+package com.example.newsmart.presentation.fragment
 
 import android.os.Bundle
 import android.view.View
@@ -8,20 +8,22 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsmart.R
-import com.example.newsmart.ScreenState
-import com.example.newsmart.activity.MainActivity
-import com.example.newsmart.adapter.PhoneAdapter
+import com.example.newsmart.presentation.ScreenState
+import com.example.newsmart.presentation.activity.MainActivity
+import com.example.newsmart.presentation.adapter.PhoneAdapter
 import com.example.newsmart.data.DataSource
 import com.example.newsmart.databinding.FragmentPhonesBinding
-import com.example.newsmart.model.Smartphone
-import com.example.newsmart.network.NetworkService
+import com.example.newsmart.domain.model.Smartphone
+import com.example.newsmart.data.network.NetworkService
 import com.example.newsmart.onClickFlow
 import com.example.newsmart.onRefreshFlow
+import com.example.newsmart.presentation.viewmodel.PhonesViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.ExperimentalSerializationApi
 
 class PhonesFragment : Fragment(R.layout.fragment_phones) {
+    private val phoneViewModel by lazy { PhonesViewModel(requireContext(), lifecycleScope) }
     companion object {
         const val KEY_NAME = "name"
         const val KEY_DESCRIPTION = "description"
@@ -81,7 +83,7 @@ class PhonesFragment : Fragment(R.layout.fragment_phones) {
         )
             .flatMapLatest{loadPhones()}
             .distinctUntilChanged()
-            .onEach{
+        phoneViewModel.screenState.onEach{
                 when(it){
                     is ScreenState.DataLoaded -> {
                         setLoading(false)
@@ -100,6 +102,16 @@ class PhonesFragment : Fragment(R.layout.fragment_phones) {
                 }
             }
             .launchIn(lifecycleScope)
+
+        if(savedInstanceState == null) {
+            phoneViewModel.loadData()
+        }
+        binding.swRefreshRW.setOnRefreshListener {
+            phoneViewModel.loadData()
+        }
+        binding.swRefreshRW.setOnRefreshListener {
+            phoneViewModel.loadData()
+        }
     }
 
     @ExperimentalSerializationApi

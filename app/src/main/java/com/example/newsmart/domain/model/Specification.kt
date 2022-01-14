@@ -1,4 +1,4 @@
-package com.example.newsmart.model
+package com.example.newsmart.domain.model
 
 import kotlinx.serialization.Serializable
 

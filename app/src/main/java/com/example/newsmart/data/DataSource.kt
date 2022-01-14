@@ -1,7 +1,6 @@
 package com.example.newsmart.data
 
-import android.provider.ContactsContract
-import com.example.newsmart.model.*
+import com.example.newsmart.domain.model.*
 
 object DataSource {
     val manufacturers = listOf(
