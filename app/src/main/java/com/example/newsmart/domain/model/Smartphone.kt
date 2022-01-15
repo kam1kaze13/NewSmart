@@ -5,7 +5,7 @@ import androidx.room.Entity
 import kotlinx.serialization.Serializable
 
 @Serializable
-@Entity(primaryKeys = ["name","description","specifications","coverResId"])
+@Entity(primaryKeys = ["name","coverResId"])
 data class Smartphone(
     @ColumnInfo val manufacturer: Manufacturer,
     @ColumnInfo val name : String,

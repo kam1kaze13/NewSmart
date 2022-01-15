@@ -5,7 +5,7 @@ import androidx.room.Entity
 import kotlinx.serialization.Serializable
 
 @Serializable
-@Entity
+@Entity(primaryKeys = ["name","coverResId"])
 data class User(
     @ColumnInfo val name : String,
     @ColumnInfo val lastName : String,

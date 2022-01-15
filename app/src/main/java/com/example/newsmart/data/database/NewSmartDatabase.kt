@@ -2,12 +2,14 @@ package com.example.newsmart.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.newsmart.domain.model.Smartphone
+import androidx.room.TypeConverters
+import com.example.newsmart.domain.model.*
 
 @Database(
-    entities = [Smartphone::class],
+    entities = [Smartphone::class, Manufacturer::class, Question::class, Review::class, ServiceCenter::class, Specification::class, User::class],
     version = 1
 )
+@TypeConverters(UserConverter::class, ReviewConverter::class, ManufacturerConverter::class,SpecificationConverter::class,ServicecenterConverter::class,QuestionConverter::class)
 abstract class NewSmartDatabase : RoomDatabase() {
     abstract fun phoneDao() : PhoneDao
     abstract fun manufacturerDao(): ManufacturerDao

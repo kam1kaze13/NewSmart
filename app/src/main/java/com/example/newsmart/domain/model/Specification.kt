@@ -5,7 +5,7 @@ import androidx.room.Entity
 import kotlinx.serialization.Serializable
 
 @Serializable
-@Entity
+@Entity(primaryKeys = ["warranty","operationSystem"])
 data class Specification(
     @ColumnInfo val warranty : String,
     @ColumnInfo val color : String,
